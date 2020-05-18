@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ManagerApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+<div id="site-wrapper">
+
+    <div id="header">
+
+        <div id="top">
+
+            <div class="left" id="logo">
+                <a href="index.html"><img src="img/logo.gif" alt=""/></a>
+            </div>
+
+            <div class="left navigation" id="main-nav">
+
+                <ul class="tabbed">
+                    <li class="current-tab"><a href="index.html">Home</a></li>
+                </ul>
+
+                <div class="clearer">&nbsp;</div>
+
+            </div>
+
+            <div class="clearer">&nbsp;</div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <h1 style="text-align:center">Product</h1>
+        <table id="table-product" class="table table-dark table-hover">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Gender</td>
+                <td>Stock</td>
+                <td>Price</td>
+                <td>CodeScan</td>
+                <td>
+                    <button id="btn" type="button" class="btn btn-success btn-sm">New</button>
+                </td>
+            </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Trigger/Open The Modal -->
+    <!-- The Modal Product-->
+    <div id="myModalProduct" class="modal">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <!-- modal-header -->
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="modal-title">
+                                Product
+                            </h1> <!-- h1 -->
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- modal-header -->
+
+                <!-- Product details -->
+                <div class="modal-body">
+
+                    <!-- Product name -->
+                    <div class="form-group">
+                        <label for="createProductName">Name</label>
+                        <input type="text" class="form-control" id="createProductName" placeholder="Product name" autocomplete="off" required>
+                    </div> <!-- Product name -->
+
+                    <!-- Product category -->
+                    <div class="form-group">
+                        <label for="createProductName">Category</label>
+                        <input type="text" class="form-control" id="createProductCategory" placeholder="Product category" autocomplete="off" required>
+                    </div> <!-- Product category -->
+
+                    <!-- Product gender -->
+                    <div class="form-group">
+                        <label for="createProductGender">Gender</label>
+                        <input type="text" class="form-control" id="createProductGender" placeholder="Product gender" autocomplete="off" required>
+                    </div> <!-- Product gender -->
+
+                    <!-- Product stock -->
+                    <div class="form-group">
+                        <label for="createProductGender">Stock</label>
+                        <input type="number" class="form-control" id="createProductStock" placeholder="Product stock" autocomplete="off" required>
+                    </div> <!-- Product stock -->
+
+                    <!-- Product price -->
+                    <div class="form-group">
+                        <label for="createProductPrice">Price</label>
+                        <input type="number" class="form-control" id="createProductPrice" placeholder="Product price" autocomplete="off" required>
+                    </div> <!-- Product price -->
+
+                    <!-- Product codeScan -->
+                    <div class="form-group">
+                        <label for="createProductCodeScan">CodeScan</label>
+                        <input type="text" class="form-control" id="createProductCodeScan" placeholder="Product CodeScan" autocomplete="off" required>
+                    </div> <!-- Product codeScan -->
+                    <button id="product-create-button" type="submit" class="btn btn-primary">Add product</button>
+                    <button type="cancel" class="btn btn-warning btn-sm" onclick="javascript:window.location='index.html';">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- The Modal Product-->
+
+
+    <div class="clearer">&nbsp;</div>
+
+    <div class="container">
+        <h1 style="text-align:center">Employe</h1>
+        <table id="table-detail-employe" class="table table-dark table-hover">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Last Name</td>
+                <td>Department</td>
+                <td>
+                    <button id="myBtn" class="btn btn-success btn-sm">New</button>
+                </td>
+            </tr>
+            </thead>
+            <tbody id="tab">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Trigger/Open The Modal -->
+    <!-- The Modal Employe -->
+    <div id="myModalEmploye" class="modal">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <!-- modal-header -->
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="modal-title">
+                                Employe
+                            </h1> <!-- h1 -->
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- modal-header -->
+
+                <!-- Employe  details -->
+                <div class="modal-body">
+
+                    <!-- Employe  name -->
+                    <div class="form-group">
+                        <label for="createEmployeName">Name</label>
+                        <input type="text" class="form-control" id="createEmployeName" placeholder="Employe name" autocomplete="off" required>
+                    </div> <!-- Employe  name -->
+
+                    <!-- Employe  lastName -->
+                    <div class="form-group">
+                        <label for="createEmployeLastName">LastName</label>
+                        <input type="text" class="form-control" id="createEmployeLastName" placeholder="Employe lastName" autocomplete="off" required>
+                    </div> <!-- Employe  category -->
+
+                    <!-- Employe  department -->
+                    <div class="form-group">
+                        <label for="createEmployeDepartment">Department</label>
+                        <input type="text" class="form-control" id="createEmployeDepartment" placeholder="Employe department" autocomplete="off" required>
+                    </div> <!-- Employe department -->
+
+                </div>
+                <button id="employe-create-button" type="submit" class="btn btn-primary btn-sm">Add Employe</button>
+                <button type="cancel" class="btn btn-warning btn-sm" onclick="javascript:window.location='index.html';">Cancel</button>
+            </div>
+        </div>
+    </div>    <!-- The Modal Employe -->
+
+
+    <div id="footer">
+        <img src="img/logo-small.gif" alt="" class="left"/>
+
+        <p>&copy; 2019 ManagerApp. All rights Reserved</p>
+
+        <div class="clearer">&nbsp;</div>
+
+        <div class="clearer">&nbsp;</div>
+    </div>
+
+</div>
+<!-- Custom JavaScript for this theme -->
+<script src="js/product_management.js"></script>
+<script src="js/employe_management.js"></script>
+<script src="js/button.js"></script>
+</body>
+</html>
