@@ -9,13 +9,13 @@ public class SaleController {
 
     private SaleService saleService;
 
-    SaleController(){
+    SaleController() {
         saleService = new SaleService();
     }
 
 
     @PutMapping("/sale")
-    public String getSale(@RequestParam String codeScan, @RequestParam Long numberOfProducts){
-      return saleService.saleProduct(codeScan,numberOfProducts.intValue());
+    public String getSale(@RequestParam String codeScan, @RequestParam int numberOfProducts) {
+        return saleService.saleProduct(codeScan, numberOfProducts);
     }
 }

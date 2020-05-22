@@ -297,4 +297,28 @@ public class ProductRepository {
         }
         return products;
     }
+
+    public void updateStockByCodeScan(String codeScan, int stock) {
+
+        try {
+            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+
+            String sql = "UPDATE products SET stock=? WHERE codeScan =? ";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(2, stock);
+            statement.setString(1, codeScan);
+
+            int rows = statement.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("the product information has been updated.");
+            }
+            connection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

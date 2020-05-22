@@ -1,7 +1,7 @@
 package com.management.stock.service;
 
 public class SaleService {
-   private ProductService productService;
+    private ProductService productService;
 
 
     public SaleService() {
@@ -12,8 +12,10 @@ public class SaleService {
     public String saleProduct(String codeScan, int numberOfProducts) {
         int decreasesStock = productService.saleProduct(codeScan).getStock() - numberOfProducts;
         productService.saleProduct(codeScan).setStock(decreasesStock);
-        double totalAmount =  productService.pret(codeScan) * numberOfProducts;
-        return " For these products " + codeScan + "  Total amount is : " + totalAmount;
+        productService.modifyStockByCodeScan(codeScan,decreasesStock);
+        double totalAmount = productService.pret(codeScan) * numberOfProducts;
+        return "CodeScan " + codeScan + "NumberofProducts " + productService.saleProduct(codeScan);
+
     }
 
 }
