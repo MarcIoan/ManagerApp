@@ -41,7 +41,7 @@ function getProduct() {
             let cell6 = productRow.insertCell();
             let cell7 = productRow.insertCell();
             let cell8 = productRow.insertCell();
-
+            let cell9 = productRow.insertCell();
 
             // Add in table cell product
             cell1.innerHTML = product.name;
@@ -50,8 +50,9 @@ function getProduct() {
             cell4.innerHTML = product.stock;
             cell5.innerHTML = product.price;
             cell6.innerHTML = product.codeScan;
-            cell7.innerHTML;
+            cell7.innerHTML = product.image;
             cell8.innerHTML;
+            cell9.innerHTML;
 
 
             let buttonProductDetail = document.createElement("button");
@@ -65,8 +66,7 @@ function getProduct() {
                 window.open('detail_product.html', '_self');
             }, false);
 
-
-            cell7.appendChild(buttonProductDetail);
+            cell9.appendChild(buttonProductDetail);
             productList.appendChild(productRow);
 
         }
@@ -80,6 +80,7 @@ function createProduct() {
     let createStock = document.querySelector("#createProductStock").value;
     let createPrice = document.querySelector("#createProductPrice").value;
     let createCodeScan = document.querySelector("#createProductCodeScan").value;
+    let createImage = document.querySelector("#createProductImage").value;
 
     let createProduct = {
         name: createName,
@@ -87,7 +88,8 @@ function createProduct() {
         gender: createGender,
         stock: Number(createStock),
         price: Number(createPrice),
-        codeScan: createCodeScan
+        codeScan: createCodeScan,
+        createImage: createImage,
     };
 
     return fetch(SERVER + "/products", {
@@ -107,6 +109,7 @@ function createProduct() {
         });
 
 }
+
 
 // this function is called when page is loading
 $(document).ready(function () {

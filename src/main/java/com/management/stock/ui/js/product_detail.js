@@ -34,7 +34,6 @@ function getProduct() {
         cell2.innerHTML = product.category;
         cell3.innerHTML = product.gender;
         cell4.innerHTML = product.stock;
-        console.log("cell4"+ cell4.innerHTML);
         cell5.innerHTML = product.price;
         cell6.innerHTML = product.codeScan;
         cell7.innerHTML = product.image;
@@ -54,9 +53,11 @@ function getProduct() {
         buttonProductUpdate.className = "btn btn-primary btn-sm";
         buttonProductUpdate.setAttribute("data-id", product.id);
         buttonProductUpdate.innerHTML = "Update";
+
         buttonProductUpdate.addEventListener('click', function (f) {
             updateProduct();
         }, false);
+
 
 
         let buttonProductDelete = document.createElement("button");

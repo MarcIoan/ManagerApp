@@ -17,7 +17,7 @@ public class ProductRepository {
             Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 
             String sql = "INSERT INTO products ( name,  category,  gender,  price,  stock, codeScan, image) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ? )";
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
