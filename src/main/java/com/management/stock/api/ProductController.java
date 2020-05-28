@@ -24,13 +24,13 @@ public class ProductController {
 
     @PostMapping("/products")
     public void postProduct(@RequestBody Product p) {
-        productService.addProduct(p.getName(), p.getCategory(), p.getGender(), p.getPrice(), p.getStock(), p.getCodeScan());
+        productService.addProduct(p.getName(), p.getCategory(), p.getGender(), p.getPrice(), p.getStock(), p.getCodeScan(), p.getImage());
     }
 
 
     @PutMapping(value = "/products/{id}", consumes = {"application/json"})
     public void putProduct(@PathVariable Long id, @RequestBody Product p) {
-        productService.modifyProductById(id, p.getName(), p.getCategory(), p.getGender(), p.getPrice(), p.getStock(), p.getCodeScan());
+        productService.modifyProductById(id, p.getName(), p.getCategory(), p.getGender(), p.getPrice(), p.getStock(), p.getCodeScan(), p.getImage());
     }
 
     @DeleteMapping("/products/{id}")

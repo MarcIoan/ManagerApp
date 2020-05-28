@@ -9,12 +9,11 @@ public class SaleService {
     }
 
 
-    public String saleProduct(String codeScan, int numberOfProducts) {
-        int decreasesStock = productService.saleProduct(codeScan).getStock() - numberOfProducts;
-        productService.saleProduct(codeScan).setStock(decreasesStock);
+    public String searchProductByCodeScan(String codeScan, int numberOfProducts) {
+        int decreasesStock = productService.selectProductByCodeScan(codeScan).getStock() - numberOfProducts;
         productService.modifyStockByCodeScan(codeScan,decreasesStock);
         double totalAmount = productService.pret(codeScan) * numberOfProducts;
-        return "CodeScan " + codeScan + "NumberofProducts " + productService.saleProduct(codeScan);
+        return "CodeScan " + codeScan + "NumberofProducts " + productService.selectProductByCodeScan(codeScan);
 
     }
 

@@ -14,8 +14,8 @@ public class ProductService {
         productRepository = new ProductRepository();
     }
 
-    public void addProduct(String name, String category, String gender, int price, int stock, String codeScan) {
-        productRepository.insert(name, category, gender, price, stock, codeScan);
+    public void addProduct(String name, String category, String gender, int price, int stock, String codeScan,String image) {
+        productRepository.insert(name, category, gender, price, stock, codeScan,image);
     }
 
     public void removeProductById(int id) {
@@ -30,8 +30,8 @@ public class ProductService {
         productRepository.updateStockById(id, stock);
     }
 
-    public void modifyProductById(Long id, String name, String category, String gender, int price, int stock, String codeScan) {
-        productRepository.updateById(id.intValue(), name, category, gender, price, stock, codeScan);
+    public void modifyProductById(Long id, String name, String category, String gender, int price, int stock, String codeScan,String image) {
+        productRepository.updateById(id.intValue(), name, category, gender, price, stock, codeScan,image);
     }
 
     public ArrayList<Product> getAllEmploye() {
@@ -55,7 +55,7 @@ public class ProductService {
         return total;
     }
 
-    public Product saleProduct(String codeScan) {
+    public Product selectProductByCodeScan(String codeScan) {
         return productRepository.selectByCodeScan(codeScan);
     }
 

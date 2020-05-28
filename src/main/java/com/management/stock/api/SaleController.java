@@ -16,6 +16,6 @@ public class SaleController {
 
     @PutMapping("/sale")
     public String getSale(@RequestParam String codeScan, @RequestParam int numberOfProducts) {
-        return saleService.saleProduct(codeScan, numberOfProducts);
+        return saleService.searchProductByCodeScan(codeScan, numberOfProducts);
     }
 }

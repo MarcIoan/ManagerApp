@@ -86,7 +86,13 @@ h1 {
 ul.plain-list li, ul.nice-list li, ul.tabbed li {
 	list-style: none;
 	margin-top: 0;
+	padding: 0.5em;
 }
+ul.tabbed {
+	display: inline;
+	margin: 0;
+}
+ul.tabbed li {float: left;}
 
 /* Tables */
 
@@ -191,10 +197,10 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 	bottom: 0;
 	width: 100%;
 	text-align: center;
-	position: fixed;
+
 }
 
-#footer p {margin-bottom: 0.4em;}
+#footer p {margin-bottom: 0.5em;}
 #footer .text-separator {
 	padding: 0 3px;
 	color: #BBB;

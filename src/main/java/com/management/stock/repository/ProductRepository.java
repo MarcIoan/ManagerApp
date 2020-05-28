@@ -11,13 +11,13 @@ public class ProductRepository {
     private String dbPassword = "1234";
 
 
-    public void insert(String name, String category, String gender, int price, int stock, String codeScan) {
+    public void insert(String name, String category, String gender, int price, int stock, String codeScan, String image) {
 
         try {
             Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 
-            String sql = "INSERT INTO products ( name,  category,  gender,  price,  stock, codeScan) "
-                    + "VALUES (?, ?, ?, ?, ?, ? )";
+            String sql = "INSERT INTO products ( name,  category,  gender,  price,  stock, codeScan, image) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ? )";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
@@ -26,6 +26,7 @@ public class ProductRepository {
             statement.setInt(4, price);
             statement.setInt(5, stock);
             statement.setString(6, codeScan);
+            statement.setString(7,image);
 
             int rows = statement.executeUpdate();
 
@@ -39,12 +40,12 @@ public class ProductRepository {
         }
     }
 
-    public void updateByName(String name, String category, String gender, int price, int stock, String codeScan) {
+    public void updateByName(String name, String category, String gender, int price, int stock, String codeScan, String image) {
 
         try {
             Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 
-            String sql = "UPDATE products SET  category=?, gender=?, price=?,stock=?,codeScan=? WHERE name =? ";
+            String sql = "UPDATE products SET  category=?, gender=?, price=?,stock=?,codeScan=?, image =? WHERE name =? ";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -54,6 +55,7 @@ public class ProductRepository {
             statement.setInt(4, stock);
             statement.setString(5, codeScan);
             statement.setString(6, name);
+            statement.setString(7, image);
 
 
             int rows = statement.executeUpdate();
@@ -68,12 +70,12 @@ public class ProductRepository {
         }
     }
 
-    public void updateById(int id, String name, String category, String gender, int price, int stock, String codeScan) {
+    public void updateById(int id, String name, String category, String gender, int price, int stock, String codeScan, String image) {
 
         try {
             Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 
-            String sql = "UPDATE products SET name=?,  category=?, gender=?, price=?,stock=?,codeScan=? WHERE user_id =? ";
+            String sql = "UPDATE products SET name=?,  category=?, gender=?, price=?,stock=?,codeScan=?,image=? WHERE user_id =? ";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
@@ -82,7 +84,9 @@ public class ProductRepository {
             statement.setInt(4, price);
             statement.setInt(5, stock);
             statement.setString(6, codeScan);
-            statement.setInt(7, id);
+            statement.setString(7, image);
+            statement.setInt(8, id);
+
 
             int rows = statement.executeUpdate();
 
@@ -183,8 +187,9 @@ public class ProductRepository {
                 int price = result.getInt("price");
                 int stock = result.getInt("stock");
                 String codeScan = result.getString("codeScan");
+                String image = result.getString("image");
 
-                product = new Product(user_id, name, category, gender, price, stock, codeScan);
+                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
 
             }
 
@@ -216,8 +221,9 @@ public class ProductRepository {
                 int price = result.getInt("price");
                 int stock = result.getInt("stock");
                 String codeScan = result.getString("codeScan");
+                String image = result.getString("image");
 
-                product = new Product(user_id, name, category, gender, price, stock, codeScan);
+                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
 
             }
 
@@ -249,8 +255,9 @@ public class ProductRepository {
                 int price = result.getInt("price");
                 int stock = result.getInt("stock");
                 String codeScan = result.getString("codeScan");
+                String image = result.getString("image");
 
-                product = new Product(user_id, name, category, gender, price, stock, codeScan);
+                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
 
             }
 
@@ -281,8 +288,9 @@ public class ProductRepository {
                 int price = result.getInt("price");
                 int stock = result.getInt("stock");
                 String codeScan = result.getString("codeScan");
+                String image = result.getString("image");
 
-                Product product = new Product(userId,name,category,gender,price,stock,codeScan);
+                Product product = new Product(userId,name,category,gender,price,stock,codeScan,image);
 
                 products.add(product);
 
@@ -307,8 +315,8 @@ public class ProductRepository {
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setInt(2, stock);
-            statement.setString(1, codeScan);
+            statement.setInt(1, stock);
+            statement.setString(2, codeScan);
 
             int rows = statement.executeUpdate();
 

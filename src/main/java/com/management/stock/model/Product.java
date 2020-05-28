@@ -8,8 +8,9 @@ public class Product {
     private int stock;
     private int price;
     private String codeScan;
+    private String image;
 
-    public Product(long id, String name, String category, String gender, int price, int stock, String codeScan) {
+    public Product(long id, String name, String category, String gender, int price, int stock, String codeScan,String image) {
         this.id = id;
         this.category = category;
         this.codeScan = codeScan;
@@ -17,6 +18,7 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.name = name;
+        this.image = image;
     }
 
     public int getPrice() {
@@ -47,6 +49,10 @@ public class Product {
         return name;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public void setStock(int stock) {
         this.stock = stock;
     }
@@ -54,7 +60,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product " + " id " + id + " name :  " + name + " category " + category + " gender " + gender + " stock " + stock + " price " + price +
-                " codeScan " + codeScan;
+                " codeScan " + codeScan + "image" + image;
     }
 }
 
