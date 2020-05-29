@@ -89,7 +89,7 @@ function createProduct() {
         stock: Number(createStock),
         price: Number(createPrice),
         codeScan: createCodeScan,
-        createImage: createImage,
+        image: createImage,
     };
 
     return fetch(SERVER + "/products", {

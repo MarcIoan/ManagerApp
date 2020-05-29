@@ -19,6 +19,7 @@ public class ProductRepository {
             String sql = "INSERT INTO products ( name,  category,  gender,  price,  stock, codeScan, image) "
                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+            System.out.println(image);
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
             statement.setString(2, category);
