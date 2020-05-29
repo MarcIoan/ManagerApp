@@ -14,7 +14,7 @@ function getProduct() {
             if (response.ok) { // if everyting is ok
                 // Get the response body
                 return response.json();
-                location.reload();
+
             }
         }).then(function (product_list) {
         console.log(product_list);

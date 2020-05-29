@@ -85,7 +85,7 @@ function updateProduct() {
     let updateStock = document.querySelector("#stock").innerHTML;
     let updatePrice = document.querySelector("#price").innerHTML;
     let updateCodeScan = document.querySelector("#codeScan").innerHTML;
-    let  updateImage = document.querySelector("#image").innerHTML;
+    let updateImage = document.querySelector("#image").innerHTML;
 
 
     let updateProduct = {
