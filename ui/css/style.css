@@ -1,0 +1,211 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+   General
+------------------------------------------------------------------- */
+
+html {
+	height: 100%;
+	padding-bottom: 1px; /* force scrollbars */
+}
+
+body {
+	background: #FFF;
+	color: #444;
+	font: normal 75% sans-serif;
+	line-height: 1.5;
+}
+
+
+/*
+   Typography
+------------------------------------------------------------------- */
+
+/* Headings */
+
+h1 {
+	color: #444;
+	line-height: 1;
+	margin-bottom: 1em;
+    font-weight: bold;
+	font-size: 3.6em;
+	font-size:50px;
+	margin: 0.5em 0;
+
+}
+
+/* Lists */
+
+ul.plain-list li, ul.nice-list li, ul.tabbed li {
+	list-style: none;
+	margin-top: 0;
+	padding: 0.5em;
+}
+ul.tabbed {
+	display: inline;
+	margin: 0;
+}
+ul.tabbed li {float: left;}
+
+/* Tables */
+
+table {margin-bottom: 1.5em; width: 100%;}
+th {font-weight: bold;
+	font-size: 1rem;
+}
+td {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+
+/* Images */
+
+img.bordered,img.alignleft,img.alignright,img.aligncenter {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	padding: 3px;
+}
+img.alignleft, img.left {margin: 0 1.5em 1em 0;}
+img.alignright, img.right {margin: 0 0 1em 1.5em;}
+
+
+/* Floats */
+
+.left,.alignleft {float: left;}
+.right,.alignright {float: right;}
+
+.clear,.clearer {clear: both;}
+.clearer {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	height: 0;
+}
+
+
+/*
+   Layout
+------------------------------------------------------------------- */
+
+/* Common */
+#top, #sub-nav {border-bottom: 1px solid #DDD;}
+
+
+
+
+/* Header */
+#header {padding-top: 10px;}
+
+/* Top */
+#top {padding-bottom: 5px;}
+
+
+/* Logo */
+#logo {	border-right: 1px solid #DDD;
+	padding: 10px 40px 10px 0;
+	margin-right: 40px;
+}
+#logo img {}
+
+/* Navigation */
+.navigation a {
+	color: #888;
+	text-decoration: none;
+}
+.navigation a:hover {color: #002;}
+.navigation li.current-tab a {color: #222;}
+
+#main-nav li:first-child, #sub-nav li:first-child {margin-left: 0;}
+
+/* Main navigation */
+#main-nav {padding-top: 30px;}
+#main-nav li {margin: 0 1.5em;}
+#main-nav a {
+	font-size: 1.8em;
+	line-height: 1em;
+	padding-bottom: 1px;
+}
+#main-nav li.current-tab a {color: #333;}
+#main-nav a:hover {color: #002;}
+#main-nav li.current-tab a {border-bottom: 1px solid #94CC5F;}
+
+/* Subnav */
+#sub-nav {
+	border-bottom: 1px solid #DDD;
+	padding: 1px 0;
+}
+#sub-nav a {
+	font-size: 1.2em;
+	text-decoration: none;
+}
+
+/* Footer */
+
+#footer {
+	border-top: 1px solid #DDD;
+	color: #777;
+	padding: 16px 0 4px;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+
+}
+
+#footer p {margin-bottom: 0.5em;}
+#footer .text-separator {
+	padding: 0 3px;
+	color: #BBB;
+}
+#page-footer-wrapper {
+	visibility: hidden;
+}
+
