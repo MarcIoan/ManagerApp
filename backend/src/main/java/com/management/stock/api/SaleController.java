@@ -1,5 +1,6 @@
 package com.management.stock.api;
 
+import com.management.stock.model.SaleResponse;
 import com.management.stock.service.SaleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ public class SaleController {
         saleService = new SaleService();
     }
 
-    @PutMapping("/sale")
-    public String getSale(@RequestParam String codeScan, @RequestParam int numberOfProducts) {
-        return saleService.searchProductByCodeScan(codeScan, numberOfProducts);
+    @PutMapping("/sales")
+    public SaleResponse getSale(@RequestParam String codeScan, @RequestParam int numberOfProducts) {
+        return saleService.sellProduct(codeScan, numberOfProducts);
     }
 }

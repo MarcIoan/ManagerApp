@@ -2,10 +2,11 @@ package com.management.stock.service;
 
 import com.management.stock.model.Product;
 import com.management.stock.repository.ProductRepository;
-
 import java.util.ArrayList;
 
-
+/**
+ *
+ */
 public class ProductService {
 
     private ProductRepository productRepository;
@@ -14,60 +15,53 @@ public class ProductService {
         productRepository = new ProductRepository();
     }
 
-    public void addProduct(String name, String category, String gender, int price, int stock, String codeScan,String image) {
-        productRepository.insert(name, category, gender, price, stock, codeScan,image);
+    /**
+     * Get all products
+     */
+    public ArrayList<Product> getAllProducts() {
+        return productRepository.getAllProducts();
     }
 
-    public void removeProductById(int id) {
-        productRepository.deleteById(id);
+    /**
+     * Get product by id
+     */
+    public Product getProductById(int productId) {
+        return productRepository.getProductById(productId);
     }
 
-    public void removeProductByName(String name) {
-        productRepository.deleteByName(name);
+    /**
+     * Get product by code scan
+     */
+    public Product getProductByCodeScan(String codeScan) {
+        return productRepository.getProductByCodeScan(codeScan);
     }
 
-    public void modifyStock(Long id, int stock) {
-        productRepository.updateStockById(id, stock);
+    /**
+     * Add a new product
+     */
+    public void addProduct(Product newProduct) {
+        productRepository.addNewProduct(newProduct);
     }
 
-    public void modifyProductById(Long id, String name, String category, String gender, int price, int stock, String codeScan,String image) {
-        productRepository.updateById(id.intValue(), name, category, gender, price, stock, codeScan,image);
+    /**
+     * Delete product
+     */
+    public void deleteProductById(int productId) {
+        productRepository.deleteById(productId);
     }
 
-    public ArrayList<Product> getAllEmploye() {
-        return productRepository.selectAll();
+    /**
+     * Update product
+     */
+    public void updateProduct(int productId, Product updateProduct) {
+        productRepository.updateProduct(productId, updateProduct);
     }
 
-    public Product searchProduct(Long id) {
-        return productRepository.selectById(id);
-    }
-
-    public Product searchProductCategory(String category) {
-        return productRepository.selectByCategory(category);
-    }
-
-    public int totalStock() {
-        int total = 0;
-        ArrayList<Product> products = productRepository.selectAll();
-        for (Product p : products) {
-            total = total + p.getStock();
-        }
-        return total;
-    }
-
-    public Product selectProductByCodeScan(String codeScan) {
-        return productRepository.selectByCodeScan(codeScan);
-    }
-
-
-    public double pret(String codeScan) {
-        Product product = productRepository.selectByCodeScan(codeScan);
-        return product.getPrice();
-    }
-
-
-    public void modifyStockByCodeScan(String codeScan, int stock) {
-        productRepository.updateStockByCodeScan(codeScan, stock);
+    /**
+     * Set product stock by code scan
+     */
+    public void setProductStockByCodeScan(String codeScan, int stock) {
+        productRepository.updateProductStockByCodeScan(codeScan, stock);
     }
 }
 

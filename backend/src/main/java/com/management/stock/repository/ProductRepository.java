@@ -1,99 +1,153 @@
 package com.management.stock.repository;
 
+import com.management.stock.config.DbConfig;
 import com.management.stock.model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class ProductRepository {
-    private String host = "jdbc:mysql://localhost:3306/stockManagement";
-    private String dbUsername = "root";
-    private String dbPassword = "1234";
 
-    public void insert(String name, String category, String gender, int price, int stock, String codeScan, String image) {
+    private Connection dbConnection;
 
+    public ProductRepository() {
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+            this.dbConnection = DriverManager.getConnection(DbConfig.host, DbConfig.dbUsername, DbConfig.dbPassword);
+        } catch(Exception e) {
+            throw new RuntimeException("Database not available");
+        }
+    }
 
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM products";
+            Statement statement = dbConnection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                int productId = result.getInt("id");
+                String name = result.getString("name");
+                String category = result.getString("category");
+                String gender = result.getString("gender");
+                int price = result.getInt("price");
+                int stock = result.getInt("stock");
+                String codeScan = result.getString("codeScan");
+                String image = result.getString("image");
+                Product product = new Product(productId, name, category, gender, price, stock, codeScan, image);
+                products.add(product);
+            }
+
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return products;
+    }
+
+    public Product getProductById(int id) {
+        Product product = null;
+        try {
+            String sql = "SELECT * FROM products WHERE  user_id=?";
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                int productId = result.getInt("user_id");
+                String productName = result.getString("name");
+                String productCategory = result.getString("category");
+                String productGender = result.getString("gender");
+                int productPrice = result.getInt("price");
+                int productStock = result.getInt("stock");
+                String productCodeScan = result.getString("codeScan");
+                String productImage = result.getString("image");
+                product = new Product(productId, productName, productCategory, productGender, productPrice, productStock, productCodeScan, productImage);
+            }
+
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return product;
+    }
+
+    public Product getProductByCodeScan(String codeScan) {
+        Product product = null;
+        try {
+            String sql = "SELECT * FROM products  WHERE  codeScan=?";
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
+            statement.setString(1, codeScan);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                int productId = result.getInt("id");
+                String productName = result.getString("name");
+                String productCategory = result.getString("category");
+                String productGender = result.getString("gender");
+                int productPrice = result.getInt("price");
+                int productStock = result.getInt("stock");
+                String productCodeScan = result.getString("codeScan");
+                String productImage = result.getString("image");
+                product = new Product(productId, productName, productCategory, productGender, productPrice, productStock, productCodeScan, productImage);
+            }
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return product;
+    }
+
+
+    public void addNewProduct(Product newProduct) {
+        try {
             String sql = "INSERT INTO products ( name,  category,  gender,  price,  stock, codeScan, image) "
                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            System.out.println(image);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, category);
-            statement.setString(3, gender);
-            statement.setInt(4, price);
-            statement.setInt(5, stock);
-            statement.setString(6, codeScan);
-            statement.setString(7,image);
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
+            statement.setString(1, newProduct.getName());
+            statement.setString(2, newProduct.getCategory());
+            statement.setString(3, newProduct.getGender());
+            statement.setInt(4, newProduct.getPrice());
+            statement.setInt(5, newProduct.getStock());
+            statement.setString(6, newProduct.getCodeScan());
+            statement.setString(7, newProduct.getImage());
 
             int rows = statement.executeUpdate();
 
             if (rows > 0) {
                 System.out.println("A new product has inserted successfully.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void updateByName(String name, String category, String gender, int price, int stock, String codeScan, String image) {
-
+    public void updateProduct(int productId, Product updateProduct) {
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "UPDATE products SET  category=?, gender=?, price=?,stock=?,codeScan=?, image =? WHERE name =? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setString(1, category);
-            statement.setString(2, gender);
-            statement.setInt(3, price);
-            statement.setInt(4, stock);
-            statement.setString(5, codeScan);
-            statement.setString(6, name);
-            statement.setString(7, image);
-
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the product information has been updated.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void updateById(int id, String name, String category, String gender, int price, int stock, String codeScan, String image) {
-
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
             String sql = "UPDATE products SET name=?,  category=?, gender=?, price=?,stock=?,codeScan=?,image=? WHERE user_id =? ";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, category);
-            statement.setString(3, gender);
-            statement.setInt(4, price);
-            statement.setInt(5, stock);
-            statement.setString(6, codeScan);
-            statement.setString(7, image);
-            statement.setInt(8, id);
-
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
+            statement.setString(1, updateProduct.getName());
+            statement.setString(2, updateProduct.getCategory());
+            statement.setString(3, updateProduct.getGender());
+            statement.setInt(4, updateProduct.getPrice());
+            statement.setInt(5, updateProduct.getStock());
+            statement.setString(6, updateProduct.getCodeScan());
+            statement.setString(7, updateProduct.getImage());
+            statement.setInt(8, productId);
 
             int rows = statement.executeUpdate();
 
             if (rows > 0) {
                 System.out.println("the product information has been updated.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -101,13 +155,10 @@ public class ProductRepository {
     }
 
     public void updateStockById(Long id, int stock) {
-
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
             String sql = "UPDATE products SET stock=? WHERE user_id =? ";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
 
             statement.setInt(2, stock);
             statement.setLong(1, id);
@@ -117,7 +168,7 @@ public class ProductRepository {
             if (rows > 0) {
                 System.out.println("the product information has been updated.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -125,13 +176,10 @@ public class ProductRepository {
     }
 
     public void deleteByName(String name) {
-
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
             String sql = "DELETE FROM products WHERE name =?";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setString(1, name);
 
             int rows = statement.executeUpdate();
@@ -139,7 +187,7 @@ public class ProductRepository {
             if (rows > 0) {
                 System.out.println("the product information has been deleted.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -147,13 +195,10 @@ public class ProductRepository {
     }
 
     public void deleteById(int id) {
-
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
             String sql = "DELETE FROM products WHERE user_id =?";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setInt(1, id);
 
             int rows = statement.executeUpdate();
@@ -161,159 +206,19 @@ public class ProductRepository {
             if (rows > 0) {
                 System.out.println("the product information has been deleted.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    public Product selectById(Long id) {
-        Product product = null;
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM products WHERE  user_id=?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
-            ResultSet result = statement.executeQuery();
-
-
-            if (result.next()) {
-                int user_id = result.getInt("user_id");
-                String name = result.getString("name");
-                String category = result.getString("category");
-                String gender = result.getString("gender");
-                int price = result.getInt("price");
-                int stock = result.getInt("stock");
-                String codeScan = result.getString("codeScan");
-                String image = result.getString("image");
-
-                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return product;
-    }
-
-    public Product selectByCategory(String category1) {
-        Product product = null;
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM products  WHERE  category=?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, category1);
-            ResultSet result = statement.executeQuery();
-
-
-            while (result.next()) {
-                int user_id = result.getInt("user_id");
-                String name = result.getString("name");
-                String category = result.getString("category");
-                String gender = result.getString("gender");
-                int price = result.getInt("price");
-                int stock = result.getInt("stock");
-                String codeScan = result.getString("codeScan");
-                String image = result.getString("image");
-
-                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return product;
-    }
-
-    public Product selectByCodeScan(String codeScan1) {
-        Product product = null;
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM products  WHERE  codeScan=?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, codeScan1);
-            ResultSet result = statement.executeQuery();
-
-
-            if (result.next()) {
-                int user_id = result.getInt("user_id");
-                String name = result.getString("name");
-                String category = result.getString("category");
-                String gender = result.getString("gender");
-                int price = result.getInt("price");
-                int stock = result.getInt("stock");
-                String codeScan = result.getString("codeScan");
-                String image = result.getString("image");
-
-                product = new Product(user_id, name, category, gender, price, stock, codeScan,image);
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return product;
-    }
-
-    public ArrayList<Product> selectAll() {
-        ArrayList<Product> products = new ArrayList<>();
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM products";
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-
-
-            while (result.next()) {
-                int userId = result.getInt("user_id");
-                String name = result.getString("name");
-                String category = result.getString("category");
-                String gender = result.getString("gender");
-                int price = result.getInt("price");
-                int stock = result.getInt("stock");
-                String codeScan = result.getString("codeScan");
-                String image = result.getString("image");
-
-                Product product = new Product(userId,name,category,gender,price,stock,codeScan,image);
-
-                products.add(product);
-
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return products;
-    }
-
-    public void updateStockByCodeScan(String codeScan, int stock) {
+    public void updateProductStockByCodeScan(String codeScan, int stock) {
 
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
             String sql = "UPDATE products SET stock=? WHERE codeScan =? ";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
 
             statement.setInt(1, stock);
             statement.setString(2, codeScan);
@@ -323,7 +228,7 @@ public class ProductRepository {
             if (rows > 0) {
                 System.out.println("the product information has been updated.");
             }
-            connection.close();
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();

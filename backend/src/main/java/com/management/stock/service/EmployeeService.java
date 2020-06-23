@@ -3,9 +3,12 @@ package com.management.stock.service;
 import com.management.stock.model.Employee;
 import com.management.stock.repository.EmployeeRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ *
+ */
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
@@ -15,38 +18,38 @@ public class EmployeeService {
     }
 
     /**
-     * This method will returns all employers from databases
+     * Get all employers
      */
     public ArrayList<Employee> findAllEmployers(){
-        return employeeRepository.selectAll();
+        return employeeRepository.findAllEmployers();
     }
 
     /**
      * Get employee by id
      */
-    public Employee getEmployeeById(Long id) {
-        return employeeRepository.selectById(id);
+    public Employee getEmployeeById(int id) {
+        return employeeRepository.getEmployeeById(id);
     }
 
     /**
-     * This method will add a new employee in database
+     * Add a new employee
      */
-    public void addNewEmployee(String name, String lastName, String department) {
-        employeeRepository.insert(name, lastName, department);
+    public void addNewEmployee(Employee newEmployee) {
+        employeeRepository.createEmployee(newEmployee);
     }
 
     /**
      * Delete an employee by his id
      */
     public void deleteEmployeeById(int employeeId) {
-        employeeRepository.deleteById(employeeId);
+        employeeRepository.deleteEmployeeById(employeeId);
     }
 
     /**
-     *
+     * Update employee details (firstName, lastName, department)
      */
     public void updateEmployee(int employeeId, Employee employee){
-        employeeRepository.updateById(employeeId, e.getName(),e.getLastName(),e.getDepartment());
+        employeeRepository.updateEmployeeById(employeeId, employee);
     }
 
 }

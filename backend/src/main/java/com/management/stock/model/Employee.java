@@ -18,10 +18,6 @@ public class Employee {
         return name;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getDepartment() {
         return department;
     }

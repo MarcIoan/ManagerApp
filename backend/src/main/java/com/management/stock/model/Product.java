@@ -29,10 +29,6 @@ public class Product {
         return stock;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getCategory() {
         return category;
     }

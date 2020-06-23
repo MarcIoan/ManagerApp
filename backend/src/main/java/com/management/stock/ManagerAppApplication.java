@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Cum lucreaza aplicatia:
+ * How app works:
  *
  */
 @SpringBootApplication
@@ -15,3 +15,4 @@ public class ManagerAppApplication {
 	}
 
 }
+

@@ -1,5 +1,6 @@
 package com.management.stock.repository;
 
+import com.management.stock.config.DbConfig;
 import com.management.stock.model.Employee;
 
 import java.sql.*;
@@ -7,236 +8,33 @@ import java.util.ArrayList;
 
 public class EmployeeRepository {
 
-    private String host = "jdbc:mysql://localhost:3306/stockmanagement";
-    private String dbUsername = "root";
-    private String dbPassword = "1234";
+    Connection dbConnection;
 
-    public void insert(String name, String lastName, String department) {
-
+    public EmployeeRepository() {
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "INSERT INTO employers ( name,  lastName,  department ) "
-                    + "VALUES (?, ?, ? )";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, lastName);
-            statement.setString(3, department);
-
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("A new employe has inserted successfully.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            this.dbConnection = DriverManager.getConnection(DbConfig.host, DbConfig.dbUsername, DbConfig.dbPassword);
+        } catch(Exception e) {
+            throw new RuntimeException("Database not available");
         }
     }
 
-    public void updateByName(String name, String lastName, String department) {
-
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "UPDATE employers SET lastName=?,department=? WHERE name=? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setString(3, name);
-            statement.setString(2, lastName);
-            statement.setString(1, department);
-
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the employe information has been updated.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-
-    public void updateById(int id, String name, String lastName, String department) {
-
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "UPDATE employers SET name=?, lastName=?,department=? WHERE user_id =? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, lastName);
-            statement.setString(3, department);
-            statement.setInt(4, id);
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the employe information has been updated.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void updateByIdDepartment(int id, String department1) {
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "UPDATE employers SET department=? WHERE user_id =? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,department1);
-            statement.setInt(2, id);
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the employe information has been updated.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void deleteByName(String name) {
-
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "DELETE FROM employers WHERE name =?";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the use's information has been deleted.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void deleteById(int id) {
-
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "DELETE FROM employers WHERE user_id =?";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, id);
-
-            int rows = statement.executeUpdate();
-
-            if (rows > 0) {
-                System.out.println("the use's information has been deleted.");
-            }
-            connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Employee selectById(Long id) {
-        Employee employee = null;
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM employers  WHERE user_id = ? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1,id);
-            ResultSet result = statement.executeQuery();
-
-
-            if(result.next()) {
-                Long userId = result.getLong("user_id");
-                String name = result.getString("name");
-                String lastName = result.getString("lastName");
-                String department = result.getString("department");
-
-                employee = new Employee(userId,name,lastName,department);
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return employee;
-    }
-
-    public Employee selectByName(String name1) {
-        Employee employee = null;
-        try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM employers  WHERE name = ? ";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,name1);
-            ResultSet result = statement.executeQuery();
-
-
-            if(result.next()) {
-                int userId = result.getInt("user_id");
-                String name = result.getString("name");
-                String lastName = result.getString("lastName");
-                String department = result.getString("department");
-
-                employee = new Employee(userId,name,lastName,department);
-
-            }
-
-            connection.close();
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return employee;
-    }
-
-    public ArrayList<Employee> selectAll() {
+    public ArrayList<Employee> findAllEmployers() {
         ArrayList<Employee> employees = new ArrayList<>();
 
         try {
-            Connection connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-
-            String sql = "SELECT * FROM employers ";
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+            String sqlQuery = "SELECT * FROM employers ";
+            Statement statement = dbConnection.createStatement();
+            ResultSet result = statement.executeQuery(sqlQuery);
 
             while (result.next()) {
-                int userId = result.getInt("user_id");
+                int userId = result.getInt("id");
                 String name = result.getString("name");
                 String lastName = result.getString("lastName");
                 String department = result.getString("department");
                 Employee employee = new Employee(userId,name,lastName,department);
                 employees.add(employee);
             }
-            connection.close();
-
+            dbConnection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -244,4 +42,91 @@ public class EmployeeRepository {
         return employees;
     }
 
+    public Employee getEmployeeById(int id) {
+        Employee employee = null;
+        try {
+            String sql = "SELECT * FROM employers  WHERE user_id = ? ";
+
+            PreparedStatement statement = dbConnection.prepareStatement(sql);
+            statement.setLong(1,id);
+            ResultSet result = statement.executeQuery();
+
+            if(result.next()) {
+                Long userId = result.getLong("id");
+                String name = result.getString("name");
+                String lastName = result.getString("lastName");
+                String department = result.getString("department");
+
+                employee = new Employee(userId,name,lastName,department);
+            }
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return employee;
+    }
+
+    public void createEmployee(Employee newEmployee) {
+        try {
+            String sqlQuery = "INSERT INTO employers ( name,  lastName,  department ) "
+                    + "VALUES (?, ?, ? )";
+
+            PreparedStatement statement = dbConnection.prepareStatement(sqlQuery);
+            statement.setString(1, newEmployee.getName());
+            statement.setString(2, newEmployee.getLastName());
+            statement.setString(3, newEmployee.getDepartment());
+
+            int result = statement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("A new employee has been inserted successfully.");
+            }
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateEmployeeById(int id, Employee employee) {
+        try {
+            String sqlQuery = "UPDATE employers SET name=?, lastName=?,department=? WHERE user_id =? ";
+
+            PreparedStatement statement = dbConnection.prepareStatement(sqlQuery);
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getLastName());
+            statement.setString(3, employee.getDepartment());
+            statement.setInt(4, id);
+
+            int rows = statement.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("the employe information has been updated.");
+            }
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void deleteEmployeeById(int id) {
+        try {
+            String sqlQuery = "DELETE FROM employers WHERE user_id = ?";
+
+            PreparedStatement statement = dbConnection.prepareStatement(sqlQuery);
+            statement.setInt(1, id);
+
+            int rows = statement.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("the use's information has been deleted.");
+            }
+            dbConnection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
