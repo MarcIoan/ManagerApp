@@ -14,7 +14,7 @@ public class ProductRepository {
         try {
             this.dbConnection = DriverManager.getConnection(DbConfig.host, DbConfig.dbUsername, DbConfig.dbPassword);
         } catch(Exception e) {
-            throw new RuntimeException("Database not available");
+            throw new RuntimeException("Exception: " + e.getMessage());
         }
     }
 
