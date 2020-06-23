@@ -49,13 +49,13 @@ public class ProductRepository {
     public Product getProductById(int id) {
         Product product = null;
         try {
-            String sql = "SELECT * FROM products WHERE  user_id=?";
+            String sql = "SELECT * FROM products WHERE  id=?";
             PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                int productId = result.getInt("user_id");
+                int productId = result.getInt("id");
                 String productName = result.getString("name");
                 String productCategory = result.getString("category");
                 String productGender = result.getString("gender");
@@ -130,7 +130,7 @@ public class ProductRepository {
 
     public void updateProduct(int productId, Product updateProduct) {
         try {
-            String sql = "UPDATE products SET name=?,  category=?, gender=?, price=?,stock=?,codeScan=?,image=? WHERE user_id =? ";
+            String sql = "UPDATE products SET name=?,  category=?, gender=?, price=?,stock=?,codeScan=?,image=? WHERE id =? ";
 
             PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setString(1, updateProduct.getName());
@@ -156,7 +156,7 @@ public class ProductRepository {
 
     public void updateStockById(Long id, int stock) {
         try {
-            String sql = "UPDATE products SET stock=? WHERE user_id =? ";
+            String sql = "UPDATE products SET stock=? WHERE id =? ";
 
             PreparedStatement statement = dbConnection.prepareStatement(sql);
 
@@ -196,7 +196,7 @@ public class ProductRepository {
 
     public void deleteById(int id) {
         try {
-            String sql = "DELETE FROM products WHERE user_id =?";
+            String sql = "DELETE FROM products WHERE id =?";
 
             PreparedStatement statement = dbConnection.prepareStatement(sql);
             statement.setInt(1, id);

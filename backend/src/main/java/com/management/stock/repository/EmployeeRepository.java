@@ -14,6 +14,8 @@ public class EmployeeRepository {
         try {
             this.dbConnection = DriverManager.getConnection(DbConfig.host, DbConfig.dbUsername, DbConfig.dbPassword);
         } catch(Exception e) {
+            System.out.println("error message here");
+            System.out.println(e.getMessage());
             throw new RuntimeException("Database not available");
         }
     }

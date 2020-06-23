@@ -29,6 +29,5 @@ public class SaleService {
         SaleResponse saleResponse = new SaleResponse(codeScan, totalPrice, numberOfProducts);
         return saleResponse;
     }
-
 }
 
