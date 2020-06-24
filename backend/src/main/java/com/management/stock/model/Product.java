@@ -29,10 +29,6 @@ public class Product {
         return stock;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -59,8 +55,16 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product " + " id " + id + " name :  " + name + " category " + category + " gender " + gender + " stock " + stock + " price " + price +
-                " codeScan " + codeScan + "image" + image;
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", gender='" + gender + '\'' +
+                ", stock=" + stock +
+                ", price=" + price +
+                ", codeScan='" + codeScan + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
 

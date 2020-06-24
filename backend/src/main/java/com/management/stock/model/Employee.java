@@ -1,12 +1,13 @@
 package com.management.stock.model;
 
-public class Employe {
+public class Employee {
+
     private long id;
     private String name;
     private String lastName;
     private String department;
 
-    public Employe(long id, String name, String lastName, String department) {
+    public Employee(long id, String name, String lastName, String department) {
         this.id = id;
         this.department = department;
         this.name = name;
@@ -17,10 +18,6 @@ public class Employe {
         return name;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getDepartment() {
         return department;
     }
@@ -29,12 +26,13 @@ public class Employe {
         return lastName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     @Override
     public String toString() {
-        return " StockManagementApp.Employe " + " idendifer " + id + " name " + name + " lastName " + lastName + " department " + department;
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", department='" + department + '\'' +
+                '}';
     }
 }
